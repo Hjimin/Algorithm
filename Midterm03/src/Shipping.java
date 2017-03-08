@@ -28,9 +28,14 @@ public class Shipping {
                     data[j][1] = temp_fee;
 
                     //total weight
-                    double temp_weight = data[i][2];
+                    double temp_total_weight = data[i][2];
                     data[i][2] = data[j][2];
-                    data[j][2] = temp_weight;
+                    data[j][2] = temp_total_weight;
+
+                    //total fee
+                    double temp_total_fee = data[i][3];
+                    data[i][3] = data[j][3];
+                    data[j][3] = temp_total_fee;
                 }
             }
         }
@@ -40,17 +45,26 @@ public class Shipping {
         int num = 0;
         double fee = 0;
         int weight = 0;
-        do {
-            int i=0;
-            num +=data[i][0];
-            fee += data[i][1];
-            weight += data[i][2];
-            i++;
-        } while(num<2200 && weight<35000);
+        int old_num = 0;
+        double old_fee = 0;
+        int old_weight = 0;
 
-        System.out.println(num);
-        System.out.println(fee);
-        System.out.println(weight);
+        int i=0;
+        while (num<2200 && weight<35000) {
+            old_num = num;
+            old_weight = weight;
+            old_fee = fee;
+
+            num += data[i][0];
+            weight += data[i][2];
+            fee += data[i][3];
+            i++;
+        }
+        System.out.println(i);
+        System.out.println(old_num);
+        System.out.println(old_fee);
+        System.out.println(old_weight);
+
     }
 
     public void print() {

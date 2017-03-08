@@ -20,7 +20,7 @@ public class Main {
         Shipping sh = new Shipping(data);
         sh.sorting();
         sh.choose();
-        sh.print();
+//        sh.print();
 
     }
 }

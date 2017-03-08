@@ -30,7 +30,6 @@ public class FindRoute {
                 new_route = new ArrayList<Integer>();
                 new_route.addAll(old);
                 new_route.add(i);
-                //print(new_route);
                 find(i, to, new_route);
             }
         }
@@ -40,6 +39,7 @@ public class FindRoute {
     public ArrayList<Integer> getShortest(){
         return shortest;
     }
+
     public void print(ArrayList<Integer> arrayList){
         Iterator<Integer> li = arrayList.iterator();
         while(li.hasNext()) {
@@ -47,6 +47,4 @@ public class FindRoute {
         }
         System.out.println(" ");
     }
-
-
 }

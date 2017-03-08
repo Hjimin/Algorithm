@@ -7,10 +7,22 @@ import java.util.Iterator;
 public class Americantour {
     int[][] tour;
     int distance = 0;
-    int shortest=999999999;
+    int shortest=Integer.MAX_VALUE;
 
     public Americantour(int[][] tour) {
         this.tour = tour;
+    }
+
+    public void getDistance(ArrayList<ArrayList<Integer>> lists2) {
+        Iterator<ArrayList<Integer>> itr4 = lists2.iterator();
+        while ((itr4.hasNext())) {
+            cal(itr4.next());
+//            Iterator<Integer> itr3 = itr4.next().iterator();
+//            while (itr3.hasNext()) {
+////                System.out.print(itr3.next());
+//            }
+//            System.out.println(" ");
+        }
     }
 
     public int cal(ArrayList<Integer> selected ) {//,int count) {

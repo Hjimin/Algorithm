@@ -15,7 +15,7 @@ public class Combination {
         this.size = size;
     }
 
-    public void start(){
+    public void getCombination(){
         ArrayList<Integer> possible = new ArrayList<Integer>();
         for (int a = 0; a < size; a++) {
             possible.add(a);
@@ -28,7 +28,7 @@ public class Combination {
         }
     }
 
-    public void  combination(ArrayList<Integer> com, ArrayList<Integer> possible){
+    private void  combination(ArrayList<Integer> com, ArrayList<Integer> possible){
         Iterator<Integer> itr = possible.iterator();
         ArrayList<Integer> new_list;
 
@@ -57,7 +57,7 @@ public class Combination {
         }
     }
 
-    public ArrayList<ArrayList<Integer>> getTotal(){
+    public ArrayList<ArrayList<Integer>> getAllTheList(){
         return this.total;
     }
 
