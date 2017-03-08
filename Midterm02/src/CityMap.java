@@ -1,3 +1,5 @@
+import javax.swing.tree.DefaultMutableTreeNode;
+
 /**
  * Created by Jimin on 2/24/17.
  */
@@ -5,7 +7,6 @@ public class CityMap {
 
     //String[][] city_map = new String[100][100];
     int[][] city_map = new int[100][100];
-
 
     //i*10 + j
     public void makeMap() {
@@ -30,11 +31,14 @@ public class CityMap {
                 }
             }
         }
-        printMap();
+//        printMap();
     }
+
+
 
     private void printMap () {
         for(int i=0; i < 100 ; i++) {
+            System.out.print(i +" ");
             for(int j=0; j<100; j++) {
                 System.out.print(city_map[i][j]);
             }

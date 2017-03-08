@@ -1,41 +1,51 @@
+import java.util.ArrayList;
+import java.util.Iterator;
+
 /**
- * Created by Jimin on 2/25/17.
+ * Created by Jimin on 3/7/17.
  */
-
-
 public class FindRoute {
-
     int[][] city_map;
-    public FindRoute(int[][] city_map) {
-        this.city_map = city_map;
-    }
-    public void findRoute(int from, int to) {
-        //root == from
-        //last child == to
-        //need to find shortest
-//        CityNode root = new CityNode();
+    int size=9999999;
+    ArrayList<Integer> shortest;
 
-
+    public FindRoute(int[][] cityMap){
+        this.city_map = cityMap;
     }
 
-    private void creatTree(CityNode root, CityNode lastChild) {
-
-    }
-
-    private int calRoute(int x1, int y1, int x2, int y2){
-        int dis =  0;
-        if(x1 - x2 >= 0) {
-           dis += (x1-x2);
-        } else {
-            dis += (x2-x1);
+    public ArrayList<Integer> find(int from, int to, ArrayList<Integer> old){
+        ArrayList<Integer> new_route;
+        for(int i=0; i<100; i++) {
+            if(city_map[from][i] == 1 && old.size()<=20 && !old.contains(i)) {
+                if(i == to) {
+                    new_route = new ArrayList<Integer>();
+                    new_route.addAll(old);
+                    new_route.add(i);
+                    if(size > new_route.size()) {
+                        shortest= new_route;
+                        size=new_route.size();
+                    }
+                    return new_route;
+                }
+                new_route = new ArrayList<Integer>();
+                new_route.addAll(old);
+                new_route.add(i);
+                //print(new_route);
+                find(i, to, new_route);
+            }
         }
-        if(y1 - y2 >=0) {
-            dis += (y1 - y2);
-        } else {
-            dis += (y2 - y1);
+        return null;
+    }
+
+    public ArrayList<Integer> getShortest(){
+        return shortest;
+    }
+    public void print(ArrayList<Integer> arrayList){
+        Iterator<Integer> li = arrayList.iterator();
+        while(li.hasNext()) {
+            System.out.print(li.next() + " ");
         }
-        System.out.println("dis!!!!!" +dis);
-       return dis;
+        System.out.println(" ");
     }
 
 
