@@ -3,57 +3,37 @@
  */
 public class Secondary {
     int[][] secondary;
-    int[][] M = new int[9][9];
-    int[][] path = new int[9][9];
-    int[] RowCover = new int[9];
-    int[] ColCover = new int[9];
+    int[][] M;
+    int[][] path;
+    int[] RowCover;
+    int[] ColCover;
     int path_row_0;
     int path_col_0;
     int path_count;
+    int size;
 
-    public Secondary(int[][] secondary) {
+    public Secondary(int[][] secondary, int size) {
         this.secondary = secondary;
+        M = new int[size][size];
+        path = new int[size][size];
+        RowCover = new int[size];
+        ColCover = new int[size];
+        this.size = size;
 
-        for(int r=0; r< 9; r++) {
+        for(int r=0; r< size; r++) {
             RowCover[r]=0;
             ColCover[r] = 0;
-            for(int c=0; c< 9; c++){
+            for(int c=0; c< size; c++){
                 M[r][c] = 0;
             }
         }
     }
 
-//    public void find() {
-//        for(int r=0; r< 9; r++) {
-//            for(int c=0; c< 9; c++){
-//                System.out.print(secondary[r][c]+" ");
-//            }
-//            System.out.println(" ");
-//        }
-//
-//        System.out.println("  \n\n");
-//
-//        step_one();
-//        for(int r=0; r< 9; r++) {
-//            for(int c=0; c< 9; c++){
-//                System.out.print(secondary[r][c] + " ");
-//            }
-//            System.out.println(" ");
-//        }
-//
-//        System.out.println("  \n\n");
-//        step_two();
-//         for(int r=0; r< 9; r++) {
-//             for (int c = 0; c < 9; c++) {
-//                 System.out.print(M[r][c] + " ");
-//             }
-//             System.out.println(" ");
-//         }
-//        System.out.println("  \n\n");
-//        System.out.println(step_three());
-//
-//        step_four();
-//    }
+    public int[][] getM(){
+        return M;
+    }
+
+
 
     public void find() {
         boolean done = false;
@@ -61,49 +41,24 @@ public class Secondary {
         while(!done) {
             switch (step) {
                 case 1:
-                    System.out.println("step 1");
                     step = step_one();
                     break;
                 case 2:
-                    System.out.println("step 2");
                     step = step_two();
-
                     break;
                 case 3:
-//                    System.out.println("step 3");
                     step = step_three();
                     break;
                 case 4:
-//                    System.out.println("step 4");
                     step = step_four();
-//                    for(int r=0; r< 9; r++) {
-////                        System.out.println(ColCover[r]);
-//                         for (int c = 0; c < 9; c++) {
-//                             System.out.print(secondary[r][c] + " ");
-////                             System.out.print(M[r][c] + " ");
-//                         }
-//                         System.out.println(" ");
-//                     }
                     break;
 //                case 5:
-////                    System.out.println("step 5");
 //                    step = step_five();
 //                    break;
                 case 6:
-//                    System.out.println("step 6");
                     step = step_six();
-//                    System.out.println("&&&&&&&&&&&&&&&&&&&&&&&");
-//                    for(int r=0; r< 9; r++) {
-//////                        System.out.println(ColCover[r]);
-//                         for (int c = 0; c < 9; c++) {
-//                             System.out.print(M[r][c] + " ");
-////                             System.out.print(M[r][c] + " ");
-//                         }
-//                         System.out.println(" ");
-//                     }
                     break;
                 case 7:
-                    System.out.println("step 7");
                     done = true;
                     break;
 
@@ -113,14 +68,14 @@ public class Secondary {
     private int step_one(){
         int min_in_row;
 
-        for(int r=0; r< 9; r++) {
+        for(int r=0; r< size; r++) {
             min_in_row = secondary[r][0];
-            for(int c=0; c< 9; c++){
+            for(int c=0; c< size; c++){
                 if(secondary[r][c] < min_in_row) {
                     min_in_row = secondary[r][c];
                 }
             }
-            for(int c=0; c< 9; c++){
+            for(int c=0; c< size; c++){
                 secondary[r][c] -= min_in_row;
             }
         }
@@ -128,14 +83,13 @@ public class Secondary {
     }
 
     private int step_two() {
-        for(int i=0; i<9; i++) {
+        for(int i=0; i<size; i++) {
             RowCover[i] = 0;
             ColCover[i]=0;
         }
-        for(int r=0; r<9; r++) {
-            for(int c=0; c<9; c++) {
+        for(int r=0; r<size; r++) {
+            for(int c=0; c<size; c++) {
                 if (secondary[r][c] == 0 && RowCover[r] == 0 && ColCover[c] == 0) {
-//                    System.out.println("haha");
                     M[r][c] = 1;
                     RowCover[r] = 1;
                     ColCover[c] = 1;
@@ -150,8 +104,8 @@ public class Secondary {
     private int step_three(){
         int colcount;
 
-        for(int r=0; r<9; r++) {
-            for (int c = 0; c < 9; c++) {
+        for(int r=0; r<size; r++) {
+            for (int c = 0; c < size; c++) {
                 if (M[r][c] == 1) {
                     ColCover[c] = 1;
                 }
@@ -159,14 +113,13 @@ public class Secondary {
         }
         colcount = 0;
 
-        for (int c = 0; c < 9; c++) {
+        for (int c = 0; c < size; c++) {
             if (ColCover[c] == 1) {
                 colcount += 1;
             }
         }
 
-//        System.out.println("colcount " + colcount);
-        if(colcount >= 9) {
+        if(colcount >= size) {
             return 7;
         } else {
             return 4;
@@ -184,8 +137,6 @@ public class Secondary {
             tmp = find_a_zero();
             row = tmp[0];
             col = tmp[1];
-//            System.out.println("row"+row);
-//            System.out.println("col"+col);
 
             if(row == -1) {
                 done = true;
@@ -197,7 +148,7 @@ public class Secondary {
                     RowCover[row] = 1;
                     ColCover[col] = 0;
                 } else {
-                    System.out.println("haha");
+
                     done = true;
                     step = 5;
                     path_row_0 = row;
@@ -213,8 +164,8 @@ public class Secondary {
         int row = -1;
         int col = -1;
 
-        for (int r = 0; r < 9; r++) {
-            for (int c = 0; c < 9; c++) {
+        for (int r = 0; r < size; r++) {
+            for (int c = 0; c < size; c++) {
 //                System.out.println(secondary[r][c] +" " + RowCover[r] +" "+ ColCover[c] + " ");
                 if (secondary[r][c] == 0 && RowCover[r] == 0 && ColCover[c] == 0) {
                     row = r;
@@ -232,7 +183,7 @@ public class Secondary {
 //
     private boolean star_in_row(int row){
         boolean tmp = false;
-        for(int c=0; c<9; c++){
+        for(int c=0; c<size; c++){
             if(M[row][c] == 2)
                 tmp = true;
         }
@@ -241,9 +192,8 @@ public class Secondary {
 
     private int find_star_in_row(int row, int col) {
         col = -1;
-        for(int c =0; c< 9; c++) {
+        for(int c =0; c< size; c++) {
             if(M[row][c] == 2) {
-                System.out.println("ddddddddddddddddd");
                 M[row][c] =1;
                 col = c;
             }
@@ -290,7 +240,7 @@ public class Secondary {
 
     public int find_star_in_col(int c, int r) {
         r = -1;
-        for(int i=0; i<9; i++) {
+        for(int i=0; i<size; i++) {
             if(M[i][c] == 1)
                 r=i;
         }
@@ -298,7 +248,7 @@ public class Secondary {
     }
 
     public int find_prime_in_row(int r, int c){
-        for(int j=0; j<9; j++) {
+        for(int j=0; j<size; j++) {
             if(M[r][j] == 2)
                 c = j;
         }
@@ -316,15 +266,15 @@ public class Secondary {
     }
 
     public void clear_covers() {
-        for(int r=0; r<9; r++) {
+        for(int r=0; r<size; r++) {
             RowCover[r] = 0;
             ColCover[r] = 0;
         }
     }
 
     public void erase_primes() {
-        for(int r=0; r<9; r++) {
-            for(int c=0; c<9; c++) {
+        for(int r=0; r<size; r++) {
+            for(int c=0; c<size; c++) {
                 if(M[r][c] == 2)
                     M[r][c] = 0;
             }
@@ -335,8 +285,8 @@ public class Secondary {
         int minval = Integer.MAX_VALUE;
         int count=0;
         minval = find_smallest(minval);
-        for(int r=0; r<9; r++) {
-            for(int c=0; c<9 ;c++) {
+        for(int r=0; r<size; r++) {
+            for(int c=0; c<size ;c++) {
                 if(RowCover[r] == 1){
                     secondary[r][c] += minval;
                 }
@@ -348,19 +298,18 @@ public class Secondary {
             }
         }
 
-        if(count >=9) {
+        if(count >=size) {
             return 3;
         }
         return 4;
     }
 
     private int find_smallest(int minval){
-        for(int r=0; r<9; r++) {
-            for(int c=0; c<9 ;c++) {
+        for(int r=0; r<size; r++) {
+            for(int c=0; c<size ;c++) {
                 if(RowCover[r] == 0 && ColCover[c] == 0){
                     if(minval > secondary[r][c]){
                         minval = secondary[r][c];
-                        System.out.println("r "+r+ " c " + c +" "+minval);
                     }
                 }
             }
@@ -368,51 +317,3 @@ public class Secondary {
         return minval;
     }
 }
-//private int[] find_a_zero(){
-//        int[] ret = new int[2];
-////        int r=0;
-////        int c;
-////        boolean done;
-//        int row = -1;
-//        int col = -1;
-////        done = false;
-//
-//
-//       for(int r=0; r< 9; r++) {
-//           for (int c = 0; c < 9; c++) {
-//               if(secondary[r][c] == 0 && RowCover[r]==0 && ColCover[c]==0) {
-//                    row = r;
-//                    col = c;
-//                   break;
-//                }
-//           }
-//           System.out.println(" ");
-//       }
-////        while(!done) {
-////            c =0;
-////            while(true) {
-//////                for(int i=0; i< 9; i++) {
-//////                    for(int j=0; j< 9; j++){
-//////                        System.out.print(secondary[i][j] + " ");
-//////                    }
-//////                    System.out.println(" ");
-//////                }
-////
-////                if(secondary[r][c] == 0 && RowCover[r]==0 && ColCover[c]==0) {
-////                    row = r;
-////                    col = c;
-////                    done = true;
-////                }
-////
-////                c+=1;
-////                if(c>=9 || done)
-////                    break;
-////            }
-////            r +=1;
-////            if(r >= 9)
-////                done = true;
-////        }
-//        ret[0] = row;
-//        ret[1] = col;
-//        return ret;
-//    }

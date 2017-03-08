@@ -1,42 +1,46 @@
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.Iterator;
 
 /**
- * Created by Jimin on 2/24/17.
+ * Created by Jimin on 3/8/17.
  */
-public class Main {
-    static int[][] s = new int[9][9];
-    static int[][] M;
+public class ProblemBMain {
     public static void main(String argv[]) {
         int[] shops = new int[] {20,18,47,44,53,67,95,93,88};
-        int[][] secondary = new int[9][9];
+        int size = shops.length;
+        int[][] secondary = new int[size][size];
+        int[][] secondary2 = new int[size][size];
+        int[][] M;
+        String data;
+        char from,to;
+        CreateSolution cs = new CreateSolution();
 
-        for(int i = 0 ; i<9; i++) {
-            for(int j=0; j<9; j++) {
+        for(int i = 0 ; i<size; i++) {
+            for(int j=0; j<size; j++) {
                 if(i!=j) {
                     secondary[i][j] = problemA(shops[i], shops[j]);
+                    secondary2[i][j] = problemA(shops[i], shops[j]);
+
                 } else {
                     secondary[i][j] = 50;
+                    secondary2[i][j] = 50;
                 }
-                System.out.print(secondary[i][j] + "  ");
-            }
-            System.out.println(" ");
-        }
-        for(int i = 0 ; i<9; i++) {
-            for(int j=0; j<9; j++) {
-                s[i][j] = secondary[i][j];
             }
         }
 
         M = problemB(secondary);
-        for(int i = 0 ; i<9; i++) {
-            for(int j=0; j<9; j++) {
+
+        for(int i = 0 ; i<size; i++) {
+            from = (char)(65+i);
+            for(int j=0; j<size; j++) {
                 if(M[i][j] == 1) {
-                    System.out.print("i : " + i);
-                    System.out.print(" j : " + j);
+                    to = (char) (65 + j);
+                    data = from + " matched " + to;
+                    data += "\n";
+                    System.out.println(data);
+                    cs.writeDataToFile(data, "TheCornerStore-(b)");
                 }
             }
-            System.out.println(" ");
         }
     }
 
@@ -44,16 +48,6 @@ public class Main {
         Secondary secondary = new Secondary(arr, arr.length);
         secondary.find();
         int[][] M = secondary.getM();
-//        for(int i=0; i<9; i++) {
-//            for(int j=0; j<9; j++){
-//                if(M[i][j] == 1) {
-//                    System.out.print(s[i][j] + " ");
-//                } else {
-//                    System.out.print("0 ");
-//                }
-//            }
-//            System.out.println(" ");
-//        }
         return M;
     }
 
