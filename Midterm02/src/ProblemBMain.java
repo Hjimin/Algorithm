@@ -11,7 +11,7 @@ public class ProblemBMain {
         int[][] secondary = new int[size][size];
         int[][] secondary2 = new int[size][size];
         int[][] M;
-        String data;
+        String data="";
         char from,to;
         CreateSolution cs = new CreateSolution();
 
@@ -35,13 +35,13 @@ public class ProblemBMain {
             for(int j=0; j<size; j++) {
                 if(M[i][j] == 1) {
                     to = (char) (65 + j);
-                    data = from + " matched " + to;
+                    data += from + " matched " + to;
                     data += "\n";
-                    System.out.println(data);
-                    cs.writeDataToFile(data, "TheCornerStore-(b)");
                 }
             }
         }
+        System.out.println(data);
+        cs.writeDataToFile(data, "TheCornerStore-(b)");
     }
 
     public static int[][] problemB(int[][] arr){

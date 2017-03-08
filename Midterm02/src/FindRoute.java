@@ -6,7 +6,7 @@ import java.util.Iterator;
  */
 public class FindRoute {
     int[][] city_map;
-    int size=9999999;
+    int size=Integer.MAX_VALUE;
     ArrayList<Integer> shortest;
 
     public FindRoute(int[][] cityMap){

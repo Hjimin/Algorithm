@@ -10,7 +10,7 @@ public class ProblemAMain {
         int size;
         int[] shops = new int[] {20,18,47,44,53,67,95,93,88,66};
         size = shops.length;
-        String data;
+        String data="";
         char from,to;
 
         for(int i = 0 ; i<size; i++) {
@@ -26,7 +26,7 @@ public class ProblemAMain {
                     } else {
                         to = (char) (65 + j);
                     }
-                    data = from + " to " + to + "\tdistance: "
+                    data += from + " to " + to + "\tdistance: "
                             + String.format("%2s",shortestPath(shops[i], shops[j]).size() - 1);
                     data += "\t\tpath: ";
                     Iterator<Integer> itr = shortestPath(shops[i], shops[j]).iterator();
@@ -35,12 +35,13 @@ public class ProblemAMain {
                         data += next + " ";
                     }
                     data += "\n";
-                    System.out.println(data);
-                    cs.writeDataToFile(data, "TheCornerStore-(a)");
                 }
             }
+            data += "\n\n\n";
             System.out.println(" ");
         }
+        System.out.println(data);
+        cs.writeDataToFile(data, "TheCornerStore-(a)");
     }
 
     public static ArrayList<Integer> shortestPath(int from, int to){

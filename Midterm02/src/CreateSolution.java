@@ -9,8 +9,10 @@ import java.nio.file.StandardOpenOption;
 public class CreateSolution {
 
     public void writeDataToFile(String organized_data, String file_name) {
+        String no_data = "hh";
         try {
-            Files.write(Paths.get(file_name), organized_data.getBytes(), StandardOpenOption.APPEND);
+//            Files.write(Paths.get(file_name), no_data.getBytes(), StandardOpenOption.CREATE_NEW);
+            Files.write(Paths.get(file_name), organized_data.getBytes(), StandardOpenOption.WRITE);
         } catch (IOException e) {
             System.out.println("IOException");
         }
