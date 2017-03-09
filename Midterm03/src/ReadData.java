@@ -8,7 +8,7 @@ import java.io.IOException;
 public class ReadData {
 
     int count = 919;
-    double[][] data  = new double[count][2];
+    double[][] data  = new double[count][3];
 
     public double[][] readData() {
         try {
@@ -16,7 +16,7 @@ public class ReadData {
             String line;
 
             for (int i = 0; i < count; i++) {
-                for(int j=0; j<2 ; j++) {
+                for(int j=0; j<3 ; j++) {
                     data[i][j] = 0;
                 }
             }
@@ -25,6 +25,7 @@ public class ReadData {
             while ((line = br.readLine()) != null) {
                 data[order][0]= Integer.parseInt(line.split(",")[1]);
                 data[order][1]= Integer.parseInt(line.split(",")[2]);
+                data[order][2]= Integer.parseInt(line.split(",")[0]);
                 order++;
             }
             br.close();
@@ -36,8 +37,8 @@ public class ReadData {
 
     public void printDate() {
         for(int i=0 ; i<count; i++) {
-            for(int j =0 ; j<2 ; j++) {
-                System.out.print(data[i][j] + "   ");
+            for(int j =0 ; j<3 ; j++) {
+                System.out.print((int)data[i][j] + "   ");
             }
             System.out.println();
         }
