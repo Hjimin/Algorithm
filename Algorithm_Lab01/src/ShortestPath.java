@@ -14,17 +14,18 @@ public class ShortestPath {
     public int[][] readData(String dataFile) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(dataFile));
         String line;
+        int num;
         for(int i = 0; i<count; i++) {
             for(int j = 0; j<count; j++) {
                 data[i][j] = 0;
             }
         }
+        num = Integer.parseInt(br.readLine());
         while ((line = br.readLine()) != null) {
             data[count][0] = Integer.parseInt(line.split("   ")[0]);
             data[count][1] = Integer.parseInt(line.split("   ")[1]);
             count++;
         }
-//        calDistance(data, count);
 
         br.close();
         return data;
