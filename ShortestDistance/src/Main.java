@@ -13,15 +13,15 @@ public class Main {
 //        shortestPath.reorder(dis);
 
 
-//        ThreadDemo R1 = new ThreadDemo( "challenge1.dat");
-//        R1.start();
-//        ThreadDemo R2 = new ThreadDemo( "challenge2.dat");
-//        R2.start();
+        ThreadDemo R1 = new ThreadDemo( "challenge1.dat");
+        R1.start();
+        ThreadDemo R2 = new ThreadDemo( "challenge2.dat");
+        R2.start();
         ThreadDemo R3 = new ThreadDemo( "challenge3.dat");
         R3.start();
-//        ThreadDemo R4 = new ThreadDemo( "challenge4.dat");
-//        R4.start();
-//        ThreadDemo R5 = new ThreadDemo( "challenge5.dat");
-//        R5.start();
+        ThreadDemo R4 = new ThreadDemo( "challenge4.dat");
+        R4.start();
+        ThreadDemo R5 = new ThreadDemo( "challenge5.dat");
+        R5.start();
     }
 }

@@ -10,16 +10,16 @@ import java.util.Scanner;
 
 public class ShortestPath {
     int[][] data = new int[3000][2];
-    static int count = 3000;
+    int count = 0;
 
     public int[][] readData(String dataFile) throws IOException {
         Scanner in = new Scanner( new BufferedReader(new FileReader(dataFile)));
         int cc=2999;
         int shorte = Integer.MAX_VALUE;
         while (in.hasNext()) {
-            data[cc][0] = in.nextInt();
-            data[cc][1] = in.nextInt();
-            cc--;
+            data[count][0] = in.nextInt();
+            data[count][1] = in.nextInt();
+            count++;
         }
 
         int tempx,tempy;
@@ -85,12 +85,8 @@ public class ShortestPath {
         int[][] data4 = onceMore(data3);
         int[][] data5 = onceMore(data4);
         int[][] data6 = onceMore(data5);
-        int[][] data7 = onceMore(data6);
-        int[][] data8 = onceMore(data7);
-        int[][] data9 = onceMore(data8);
-        int[][] data10 = onceMore(data9);
 
-        return data10;
+        return data6;
     }
 
 
@@ -157,74 +153,57 @@ public class ShortestPath {
         }
 
         System.out.println("here1");
-//        double[][] dis = calDistance(new_data);
-//
-//        for(int i = 0 ; i < count-3; i++) {
-//            if(dis[i][i+1] + dis[i+2][i+3] > dis[i][i+2] + dis[i+1][i+3]) {
-//                temp_x = new_data[i + 1][0];
-//                temp_y = new_data[i + 1][1];
-//
-//                new_data[i + 1][0] = new_data[i + 2][0];
-//                new_data[i + 1][1] = new_data[i + 2][1];
-//
-//                new_data[i + 2][0] = temp_x;
-//                new_data[i + 2][1] = temp_y;
-//                dis = calDistance(new_data);
-//            }
-//        }
+        for(int i = 0 ; i < count-3; i++) {
+            if(dis[i][i+1] + dis[i+2][i+3] > dis[i][i+2] + dis[i+1][i+3]) {
+                temp_x = new_data[i + 1][0];
+                temp_y = new_data[i + 1][1];
+
+                new_data[i + 1][0] = new_data[i + 2][0];
+                new_data[i + 1][1] = new_data[i + 2][1];
+
+                new_data[i + 2][0] = temp_x;
+                new_data[i + 2][1] = temp_y;
+                dis = calDistance(new_data);
+            }
+        }
 
 
-//        System.out.println("here2");
-//        double[][] dis3 = calDistance(new_data);
-//        for(int i=0; i<count-1 ;i++) {
-//            for(int j=0; j<count-3; j++) {
-//               if((dis3[i][i+1] + dis3[j][j+1] + dis3[j+1][j+2])
-//                       > (dis3[i][j+1] + dis3[i+1][j+1] + dis3[j][j+2])) {
-//                   if((i+1) < j) {
-//                       temp_x = new_data[j + 1][0];
-//                       temp_y = new_data[j + 1][1];
-//                       for (int x = j; x >= (i + 1); x--) {
-//                           new_data[x + 1][0] = new_data[x][0];
-//                           new_data[x + 1][1] = new_data[x][1];
-//
-//                       }
-//                       new_data[i + 1][0] = temp_x;
-//                       new_data[i + 1][1] = temp_y;
-//                       dis3 = calDistance(new_data);
-//                   } else if((j+2)<i){
-//                       temp_x = new_data[j+1][0];
-//                       temp_y = new_data[j+1][1];
-//                       for(int x = j+2 ; x <= i ; x++) {
-//                           new_data[x-1][0] = new_data[x][0];
-//                           new_data[x-1][1] = new_data[x][1];
-//                       }
-//                       new_data[i][0] = temp_x;
-//                       new_data[i][1] = temp_y;
-//                       dis3 = calDistance(new_data);
-//                   }
-//               }
-//            }
-//        }
+        System.out.println("here2");
+        double[][] dis3 = calDistance(new_data);
+        for(int i=0; i<count-1 ;i++) {
+            for(int j=0; j<count-3; j++) {
+               if((dis3[i][i+1] + dis3[j][j+1] + dis3[j+1][j+2])
+                       > (dis3[i][j+1] + dis3[i+1][j+1] + dis3[j][j+2])) {
+                   if((i+1) < j) {
+                       temp_x = new_data[j + 1][0];
+                       temp_y = new_data[j + 1][1];
+                       for (int x = j; x >= (i + 1); x--) {
+                           new_data[x + 1][0] = new_data[x][0];
+                           new_data[x + 1][1] = new_data[x][1];
 
-        
-//        System.out.println("here23");
-//        double[][] dis5 = calDistance(new_data);
-//        for(int i=0; i<count-1 ; i++) {
-//            System.out.println(i);
-//            for(int j=0; j<count-1; j++) {
-//                if(dis5[i][i+1]+dis5[j][j+1]> dis5[i][j] + dis5[i+1][j+1]) {
-//                    temp_x = new_data[i+1][0];
-//                    temp_y = new_data[i+1][1];
-//
-//                    new_data[i+1][0] = new_data[j+1][0];
-//                    new_data[i+1][1] = new_data[j+1][1];
-//
-//                    new_data[j+1][0] = temp_x;
-//                    new_data[j+1][1] = temp_y;
-//                    dis5 = calDistance(new_data);
-//                }
-//            }
-//        }
+                       }
+                       new_data[i + 1][0] = temp_x;
+                       new_data[i + 1][1] = temp_y;
+                       dis3 = calDistance(new_data);
+                   } else if((j+2)<i){
+                       temp_x = new_data[j+1][0];
+                       temp_y = new_data[j+1][1];
+                       for(int x = j+2 ; x <= i ; x++) {
+                           new_data[x-1][0] = new_data[x][0];
+                           new_data[x-1][1] = new_data[x][1];
+                       }
+                       new_data[i][0] = temp_x;
+                       new_data[i][1] = temp_y;
+                       dis3 = calDistance(new_data);
+                   }
+               }
+            }
+        }
+
+        new_data = recconect(new_data);
+        new_data = recconect(new_data);
+        new_data = recconect(new_data);
+        new_data = recconect(new_data);
 
         System.out.println("here3");
         return new_data;
