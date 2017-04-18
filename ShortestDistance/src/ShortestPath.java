@@ -79,14 +79,32 @@ public class ShortestPath {
             dis[next][i] = 0;
         }
 
-        int[][] data = onceMore(new_data);
-        int[][] data2 = onceMore(data);
-        int[][] data3 = onceMore(data2);
-        int[][] data4 = onceMore(data3);
-        int[][] data5 = onceMore(data4);
-        int[][] data6 = onceMore(data5);
+        new_data = onceMore(new_data);
+        new_data = onceMore(new_data);
+        new_data = onceMore(new_data);
+        new_data = onceMore(new_data);
+        new_data = onceMore(new_data);
+        new_data = onceMore(new_data);
+        new_data = onceMore(new_data);
+        new_data = onceMore(new_data);
+        new_data = onceMore(new_data);
+        new_data = onceMore(new_data);
+        new_data = onceMore(new_data);
+        new_data = onceMore(new_data);
+        new_data = onceMore(new_data);
+        new_data = onceMore(new_data);
 
-        return data6;
+        new_data = recconect(new_data);
+        new_data = recconect(new_data);
+        new_data = recconect(new_data);
+        new_data = recconect(new_data);
+        new_data = recconect(new_data);
+        new_data = recconect(new_data);
+        new_data = recconect(new_data);
+        new_data = recconect(new_data);
+        new_data = recconect(new_data);
+        new_data = recconect(new_data);
+        return new_data;
     }
 
 
@@ -200,6 +218,19 @@ public class ShortestPath {
             }
         }
 
+
+        new_data = recconect(new_data);
+        new_data = recconect(new_data);
+        new_data = recconect(new_data);
+        new_data = recconect(new_data);
+        new_data = recconect(new_data);
+        new_data = recconect(new_data);
+        new_data = recconect(new_data);
+        new_data = recconect(new_data);
+        new_data = recconect(new_data);
+        new_data = recconect(new_data);
+        new_data = recconect(new_data);
+        new_data = recconect(new_data);
         new_data = recconect(new_data);
         new_data = recconect(new_data);
         new_data = recconect(new_data);
@@ -238,6 +269,195 @@ public class ShortestPath {
         } catch (IOException e) {
             System.out.println("Error IOException");
         }
+    }
+    public int[][] recconect2(int[][] new_data) {
+        int temp_a = 0;
+        int temp_b = 0;
+        int temp_c = 0;
+        double large = Double.MIN_VALUE;
+        double small = Double.MAX_VALUE;
+
+        double[][] dis = calDistance(new_data);
+
+        for(int i=0; i<count-1; i++) {
+            if (large < dis[i][i+1]) {
+                large = dis[i][i+1];
+                temp_a = i;
+            }
+        }
+
+        for(int i=1; i<count-10; i++ ){
+            if(dis[temp_a][i] < small && temp_a != i ) {
+                if(temp_a > i && temp_a-i >= 2) {
+                    small = dis[temp_a][i];
+                    temp_b = i;
+                } else if(i>temp_a && i-temp_a>=2){
+                    small = dis[temp_a][i];
+                    temp_b = i;
+                }
+            }
+        }
+        for(int i=1; i<count-10; i++ ){
+            if(dis[temp_a+1][i] < small && (temp_a+1) != i ) {
+                if((temp_a+1) > i && (temp_a+1)-i >= 3) {
+                    small = dis[temp_a+1][i];
+                    temp_c = i;
+                } else if(i>(temp_a+1) && i-(temp_a+1)>=3){
+                    small = dis[temp_a+1][i];
+                    temp_c = i;
+                }
+            }
+        }
+//        System.out.println(temp_a);
+//        System.out.println(temp_b);
+//        System.out.println(temp_c);
+
+        System.out.println(large);
+
+
+        int temp_x, temp_y;
+        temp_x = new_data[temp_a][0];
+        temp_y = new_data[temp_a][1];
+        int temp2_x, temp2_y;
+        temp2_x = new_data[temp_a+1][0];
+        temp2_y = new_data[temp_a+1][1];
+        if(temp_a>temp_b+1) {
+            if(temp_a>temp_c+1) {
+                if(temp_b-1>temp_c+1) {
+                    System.out.println("aa");
+                    //a>b>c
+                    for(int i=temp_a-1; i>=temp_b; i--)
+                    {
+                        new_data[i+2][0] = new_data[i][0];
+                        new_data[i+2][1] = new_data[i][1];
+                    }
+                    new_data[temp_b+1][0] = temp_x;
+                    new_data[temp_b+1][1] = temp_y;
+                    for(int i=temp_b-1; i>=temp_c; i--)
+                    {
+                        new_data[i+1][0] = new_data[i][0];
+                        new_data[i+1][1] = new_data[i][1];
+                    }
+                    new_data[temp_c][0] = temp2_x;
+                    new_data[temp_c][1] = temp2_y;
+                } else if(temp_c-1> temp_b+1){
+                    System.out.println("bb");
+                    //a>c>b
+                    for(int i=temp_a-1; i>=temp_c; i--)
+                    {
+                        new_data[i+2][0] = new_data[i][0];
+                        new_data[i+2][1] = new_data[i][1];
+                    }
+                    new_data[temp_c+1][0] = temp2_x;
+                    new_data[temp_c+1][1] = temp2_y;
+                    for(int i=temp_c-1; i>=temp_b; i--)
+                    {
+                        new_data[i+1][0] = new_data[i][0];
+                        new_data[i+1][1] = new_data[i][1];
+                    }
+                    new_data[temp_b][0] = temp_x;
+                    new_data[temp_b][1] = temp_y;
+                } else {
+                     System.out.println(temp_a);
+            System.out.println(temp_b);
+            System.out.println(temp_c);
+                }
+            } else if(temp_c-1> temp_a+1){
+                System.out.println("cc");
+                //c>a>b
+                for(int i=temp_a-1; i>=temp_b; i--)
+                {
+                    new_data[i+1][0] = new_data[i][0];
+                    new_data[i+1][1] = new_data[i][1];
+                }
+                new_data[temp_b][0] = temp_x;
+                new_data[temp_b][1] = temp_y;
+                for(int i=temp_a+2; i<=temp_c; i++)
+                {
+                    new_data[i-1][0] = new_data[i][0];
+                    new_data[i-1][1] = new_data[i][1];
+                }
+                new_data[temp_c][0] = temp2_x;
+                new_data[temp_c][1] = temp2_y;
+
+            } else {
+                 System.out.println(temp_a);
+            System.out.println(temp_b);
+            System.out.println(temp_c);
+            }
+        } else if(temp_b> temp_a+1){
+            if(temp_a>temp_c+1) {
+                System.out.println("dd");
+                //b>a>c
+                for(int i=temp_a-1; i>=temp_c; i--)
+                {
+                    new_data[i+1][0] = new_data[i][0];
+                    new_data[i+1][1] = new_data[i][1];
+                }
+                new_data[temp_c][0] = temp2_x;
+                new_data[temp_c][1] = temp2_y;
+                for(int i=temp_a+2; i<=temp_b; i++)
+                {
+                    new_data[i-1][0] = new_data[i][0];
+                    new_data[i-1][1] = new_data[i][1];
+                }
+                new_data[temp_b][0] = temp_x;
+                new_data[temp_b][1] = temp_y;
+
+            } else if(temp_c-1> temp_a+1){
+                if(temp_b-1>temp_c+1) {
+                    System.out.println("ee");
+                    //b>c>a
+                    for(int i=temp_a+2; i<=temp_c; i++)
+                    {
+                        new_data[i-2][0] = new_data[i][0];
+                        new_data[i-2][1] = new_data[i][1];
+                    }
+                    new_data[temp_c-1][0] = temp2_x;
+                    new_data[temp_c-1][1] = temp2_y;
+                    for(int i=temp_c+2; i<=temp_b; i++)
+                    {
+                        new_data[i-1][0] = new_data[i][0];
+                        new_data[i-1][1] = new_data[i][1];
+                    }
+                    new_data[temp_b][0] = temp_x;
+                    new_data[temp_b][1] = temp_y;
+                } else if(temp_c> temp_b+1){
+                    System.out.println("ff");
+                    //c>b>a
+                    for(int i=temp_a+2; i<=temp_b; i++)
+                    {
+                        new_data[i-2][0] = new_data[i][0];
+                        new_data[i-2][1] = new_data[i][1];
+                    }
+                    new_data[temp_b-1][0] = temp_x;
+                    new_data[temp_b-1][1] = temp_y;
+                    for(int i=temp_b+2; i<=temp_c; i++)
+                    {
+                        new_data[i-1][0] = new_data[i][0];
+                        new_data[i-1][1] = new_data[i][1];
+                    }
+                    new_data[temp_c][0] = temp2_x;
+                    new_data[temp_c][1] = temp2_y;
+                } else {
+                    System.out.println("33");
+                     System.out.println(temp_a);
+                        System.out.println(temp_b);
+                    System.out.println(temp_c);
+                }
+            } else {
+                System.out.println("qq");
+                 System.out.println(temp_a);
+            System.out.println(temp_b);
+            System.out.println(temp_c);
+            }
+        } else {
+            System.out.println(temp_a);
+            System.out.println(temp_b);
+            System.out.println(temp_c);
+        }
+
+        return new_data;
     }
     public int[][] recconect(int[][] new_data) {
         int temp_x = 0;
